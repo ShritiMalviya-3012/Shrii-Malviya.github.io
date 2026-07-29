@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shriti Malviya — Portfolio</title>
+<meta name="description" content="Shriti Malviya — Biotechnology Undergraduate, Graphic Designer, Video Editor & Web Developer based in Prayagraj, Uttar Pradesh.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --bg: #0b1120;
+    --bg-soft: #0f172a;
+    --bg-elevated: #121b32;
+    --card: rgba(148,163,184,0.045);
+    --card-hover: rgba(148,163,184,0.08);
+    --border: rgba(148,163,184,0.14);
+    --border-strong: rgba(148,163,184,0.28);
+    --text-primary: #f1f5f9;
+    --text-secondary: #9aa7bd;
+    --text-muted: #64748b;
+    --accent: #6366f1;
+    --accent-2: #8b5cf6;
+    --accent-soft: rgba(99,102,241,0.14);
+    --accent-glow: rgba(99,102,241,0.35);
+    --strand-a: #818cf8;
+    --strand-b: #c084fc;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --maxw: 1120px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:84px;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--accent); color:#fff; }
+
+  h1,h2,h3,h4{ font-family:var(--font-display); margin:0; letter-spacing:-0.01em; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px; height:1px;
+    background:linear-gradient(90deg,var(--accent),transparent);
+  }
+
+  .section{ padding:112px 0; position:relative; }
+  .section-head{ margin-bottom:52px; max-width:640px; }
+  .section-head h2{ font-size:clamp(1.7rem,3vw,2.35rem); font-weight:700; }
+  .section-head .desc{ margin-top:14px; color:var(--text-secondary); font-size:1.02rem; }
+
+  /* ambient background glows */
+  .glow{ position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+
+  /* ============ NAVBAR ============ */
+  header.nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(11,17,32,0.72);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 28px;
+    height:72px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:var(--font-display); font-weight:700; font-size:1.08rem;
+    letter-spacing:-0.01em;
+  }
+  .nav-logo span{ color:var(--accent-2); }
+  .nav-links{ display:flex; align-items:center; gap:36px; }
+  .nav-links a{
+    font-size:0.92rem; color:var(--text-secondary); position:relative; padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transition:width .25s ease; border-radius:2px;
+  }
+  .nav-links a:hover, .nav-links a.active{ color:var(--text-primary); }
+  .nav-links a:hover::after, .nav-links a.active::after{ width:100%; }
+
+  .nav-toggle{
+    display:none; background:none; border:1px solid var(--border); border-radius:8px;
+    width:40px; height:40px; align-items:center; justify-content:center; color:var(--text-primary);
+  }
+  .nav-toggle svg{ width:20px; height:20px; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:104px 0 96px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+  }
+  .hero-tags{ display:flex; flex-wrap:wrap; gap:10px; margin:20px 0 22px; }
+  .hero-tag{
+    font-family:var(--font-mono); font-size:0.78rem; padding:6px 13px;
+    border:1px solid var(--border-strong); border-radius:100px;
+    color:var(--text-secondary); background:var(--card);
+  }
+  .hero h1{
+    font-size:clamp(2.3rem,5vw,3.6rem); font-weight:800; line-height:1.08;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(120deg,var(--strand-a),var(--strand-b));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero .bio{
+    margin-top:22px; color:var(--text-secondary); font-size:1.06rem; max-width:560px;
+  }
+  .hero-location{
+    display:inline-flex; align-items:center; gap:8px; margin-top:22px;
+    font-size:0.9rem; color:var(--text-muted); font-family:var(--font-mono);
+  }
+  .hero-location svg{ width:15px; height:15px; color:var(--accent-2); flex-shrink:0; }
+
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:13px 24px; border-radius:10px; font-size:0.94rem; font-weight:600;
+    font-family:var(--font-body); border:1px solid transparent; transition:all .25s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#fff;
+    box-shadow:0 8px 24px -8px var(--accent-glow);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 30px -6px var(--accent-glow); }
+  .btn-ghost{
+    background:var(--card); border:1px solid var(--border-strong); color:var(--text-primary);
+  }
+  .btn-ghost:hover{ background:var(--card-hover); border-color:var(--accent); transform:translateY(-2px); }
+  .btn svg{ width:17px; height:17px; }
+
+  /* helix signature element */
+  .helix-stage{
+    position:relative; height:420px; display:flex; align-items:center; justify-content:center;
+  }
+  .helix-ring{
+    position:absolute; width:260px; height:260px; border-radius:50%;
+    border:1px solid var(--border); opacity:.6;
+  }
+  .helix-ring.r2{ width:360px; height:360px; opacity:.35; }
+  #helix{ position:relative; width:220px; height:400px; z-index:2; }
+  .dot{
+    position:absolute; width:9px; height:9px; border-radius:50%;
+    top:0; left:50%; will-change:transform, left, opacity;
+  }
+  .dot.a{ background:var(--strand-a); box-shadow:0 0 10px 1px var(--strand-a); }
+  .dot.b{ background:var(--strand-b); box-shadow:0 0 10px 1px var(--strand-b); }
+
+  /* ============ CARDS shared ============ */
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:28px; transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{
+    border-color:var(--accent-glow); transform:translateY(-4px);
+    box-shadow:0 20px 40px -20px rgba(99,102,241,0.25);
+  }
+
+  /* ============ ABOUT / EDUCATION ============ */
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .edu-card .degree{ font-size:1.14rem; font-weight:700; font-family:var(--font-display); }
+  .edu-card .school{ margin-top:8px; color:var(--accent-2); font-size:0.95rem; font-weight:500; }
+  .edu-meta{ display:flex; justify-content:space-between; align-items:center; margin-top:20px;
+    padding-top:18px; border-top:1px solid var(--border); }
+  .edu-score{ font-family:var(--font-mono); font-size:1.3rem; font-weight:600; color:var(--text-primary); }
+  .edu-score-label{ font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; }
+  .edu-duration{ font-family:var(--font-mono); font-size:0.82rem; color:var(--text-secondary); text-align:right; }
+
+  /* ============ SKILLS ============ */
+  .skills-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  .skill-card .skill-head{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+  .skill-icon{
+    width:42px; height:42px; border-radius:11px; flex-shrink:0;
+    background:var(--accent-soft); display:flex; align-items:center; justify-content:center;
+    color:var(--accent-2);
+  }
+  .skill-icon svg{ width:21px; height:21px; }
+  .skill-card h3{ font-size:1.02rem; font-weight:600; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:9px; }
+  .chip{
+    font-family:var(--font-mono); font-size:0.78rem; padding:7px 13px;
+    background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px;
+    color:var(--text-secondary); transition:all .25s ease;
+  }
+  .chip:hover{ border-color:var(--accent); color:var(--text-primary); background:var(--accent-soft); }
+  .chip.learning{ border-style:dashed; }
+
+  /* ============ EXPERIENCE ============ */
+  .timeline{ position:relative; }
+  .timeline::before{
+    content:''; position:absolute; left:9px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2) 60%,transparent);
+  }
+  .tl-item{ position:relative; padding-left:44px; padding-bottom:40px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute; left:0; top:4px; width:19px; height:19px; border-radius:50%;
+    background:var(--bg-soft); border:2px solid var(--accent-2);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tl-dot::after{ content:''; width:7px; height:7px; border-radius:50%; background:var(--accent-2); }
+  .tl-card{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px 24px;
+    transition:border-color .3s ease, transform .3s ease; }
+  .tl-card:hover{ border-color:var(--accent-glow); transform:translateX(4px); }
+  .tl-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; align-items:baseline; }
+  .tl-role{ font-family:var(--font-display); font-weight:700; font-size:1.06rem; }
+  .tl-duration{ font-family:var(--font-mono); font-size:0.76rem; color:var(--accent-2);
+    background:var(--accent-soft); padding:4px 10px; border-radius:100px; white-space:nowrap; }
+  .tl-org{ color:var(--text-secondary); font-size:0.92rem; margin-top:5px; font-weight:500; }
+  .tl-desc{ margin-top:12px; color:var(--text-secondary); font-size:0.94rem; line-height:1.65; }
+
+  /* ============ PROJECTS ============ */
+  .proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  .proj-card .proj-tag{
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--accent-2);
+    text-transform:uppercase; letter-spacing:.08em;
+  }
+  .proj-card h3{ margin-top:10px; font-size:1.08rem; font-weight:700; }
+  .proj-card p{ margin-top:10px; color:var(--text-secondary); font-size:0.93rem; }
+
+  /* ============ LANGUAGES ============ */
+  .lang-strip{ display:flex; flex-wrap:wrap; gap:18px; }
+  .lang-pill{
+    flex:1; min-width:220px; background:var(--card); border:1px solid var(--border);
+    border-radius:14px; padding:20px 22px;
+  }
+  .lang-pill .lang-name{ font-family:var(--font-display); font-weight:700; font-size:1.02rem; }
+  .lang-pill .lang-level{ margin-top:6px; font-size:0.85rem; color:var(--text-secondary); }
+  .bar{ margin-top:14px; height:5px; border-radius:100px; background:rgba(255,255,255,0.06); overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:100px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); }
+
+  /* ============ CONTACT / FOOTER ============ */
+  .contact-section{
+    background:var(--bg-elevated); border-top:1px solid var(--border);
+  }
+  .contact-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start; }
+  .contact-card{ background:var(--card); border:1px solid var(--border); border-radius:16px; padding:8px; }
+  .contact-row{
+    display:flex; align-items:center; gap:16px; padding:18px 20px;
+    border-bottom:1px solid var(--border);
+  }
+  .contact-row:last-child{ border-bottom:none; }
+  .contact-row .ic{
+    width:38px; height:38px; border-radius:10px; background:var(--accent-soft);
+    display:flex; align-items:center; justify-content:center; color:var(--accent-2); flex-shrink:0;
+  }
+  .contact-row .ic svg{ width:18px; height:18px; }
+  .contact-row .label{ font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.07em; font-family:var(--font-mono); }
+  .contact-row .value{ font-size:0.98rem; margin-top:3px; font-weight:500; }
+  .contact-row a.value:hover{ color:var(--accent-2); }
+
+  footer{ text-align:center; padding:26px 0; color:var(--text-muted); font-size:0.82rem;
+    border-top:1px solid var(--border); font-family:var(--font-mono); }
+  footer span{ color:var(--accent-2); }
+
+  /* reveal on scroll */
+  [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .helix-stage{ height:300px; order:-1; }
+    #helix{ width:170px; height:280px; }
+    .helix-ring{ width:190px; height:190px; }
+    .helix-ring.r2{ width:250px; height:250px; }
+    .edu-grid, .skills-grid, .proj-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .section{ padding:80px 0; }
+  }
+  @media (max-width: 700px){
+    .nav-links{
+      position:fixed; top:72px; left:0; right:0; bottom:0;
+      background:var(--bg-soft); flex-direction:column; align-items:flex-start;
+      padding:32px 28px; gap:26px; transform:translateX(100%);
+      transition:transform .35s ease; border-top:1px solid var(--border);
+    }
+    .nav-links.open{ transform:translateX(0); }
+    .nav-links a{ font-size:1.05rem; }
+    .nav-toggle{ display:flex; }
+  }
+  @media (max-width: 480px){
+    .wrap{ padding:0 20px; }
+    .hero{ padding:64px 0 56px; }
+    .lang-strip{ flex-direction:column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Shriti<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" data-nav>About</a>
+      <a href="#skills" data-nav>Skills</a>
+      <a href="#experience" data-nav>Experience</a>
+      <a href="#projects" data-nav>Projects</a>
+      <a href="#contact" data-nav>Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg id="iconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="glow" style="width:420px;height:420px;background:var(--accent);top:-140px;left:-100px;opacity:.22;"></div>
+    <div class="glow" style="width:380px;height:380px;background:var(--accent-2);bottom:-160px;right:0;opacity:.18;"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Prayagraj, Uttar Pradesh</div>
+        <h1>Hi, I'm <span class="accent">Shriti Malviya</span></h1>
+        <div class="hero-tags">
+          <span class="hero-tag">Biotechnology Undergraduate</span>
+          <span class="hero-tag">Graphic Designer</span>
+          <span class="hero-tag">Video Editor</span>
+          <span class="hero-tag">Web Developer</span>
+        </div>
+        <p class="bio">I enjoy transforming ideas into real-world applications, exploring emerging technologies, and continuously improving my skills through projects, internships, and hands-on learning.</p>
+        <div class="hero-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Prayagraj, Uttar Pradesh, India
+        </div>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            Contact Me
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/shriti-malviya" target="_blank" rel="noopener" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            View LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="helix-stage">
+        <div class="helix-ring r1"></div>
+        <div class="helix-ring r2"></div>
+        <div id="helix"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT / EDUCATION ================= -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="eyebrow">About</div>
+        <h2>Education</h2>
+        <p class="desc">A biotechnology foundation paired with a growing set of design and development skills.</p>
+      </div>
+
+      <div class="edu-grid">
+        <div class="card edu-card" data-reveal>
+          <div class="degree">B.Tech in Biotechnology</div>
+          <div class="school">Sam Higginbottom University of Agriculture, Technology and Sciences (SHUATS)</div>
+          <div class="edu-meta">
+            <div>
+              <div class="edu-score">9.23</div>
+              <div class="edu-score-label">CGPA</div>
+            </div>
+            <div class="edu-duration">Aug 2024 —<br>June 2028</div>
+          </div>
+        </div>
+
+        <div class="card edu-card" data-reveal>
+          <div class="degree">Intermediate (PCB)</div>
+          <div class="school">ASJD IC</div>
+          <div class="edu-meta">
+            <div>
+              <div class="edu-score">75.8%</div>
+              <div class="edu-score-label">Aggregate</div>
+            </div>
+            <div class="edu-duration">Aug 2022 —<br>April 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS ================= -->
+  <section class="section" id="skills" style="background:var(--bg-soft);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="eyebrow">Capabilities</div>
+        <h2>Skills</h2>
+        <p class="desc">Spanning wet-lab bioscience, visual storytelling, and front-end development.</p>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="card skill-card" data-reveal>
+          <div class="skill-head">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            </div>
+            <h3>Graphic Designing &amp; Video Editing</h3>
+          </div>
+          <div class="chip-row">
+            <span class="chip">Photoshop</span>
+            <span class="chip">Figma</span>
+            <span class="chip">Adobe After Effects</span>
+            <span class="chip">Adobe Premiere Pro</span>
+            <span class="chip">Typography Animation</span>
+            <span class="chip">Color Calibration</span>
+            <span class="chip">Color Grading</span>
+            <span class="chip">Audio Mixing</span>
+          </div>
+        </div>
+
+        <div class="card skill-card" data-reveal>
+          <div class="skill-head">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Programming &amp; Web Development</h3>
+          </div>
+          <div class="chip-row">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">C</span>
+            <span class="chip">Python</span>
+            <span class="chip learning">JavaScript (Learning)</span>
+          </div>
+        </div>
+
+        <div class="card skill-card" data-reveal>
+          <div class="skill-head">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+            </div>
+            <h3>Database &amp; Tools</h3>
+          </div>
+          <div class="chip-row">
+            <span class="chip">MySQL</span>
+            <span class="chip">GitHub</span>
+            <span class="chip">VS Code</span>
+          </div>
+        </div>
+
+        <div class="card skill-card" data-reveal>
+          <div class="skill-head">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v5c0 1-1 2-2 3-1.5 1.5-3 3.5-3 6a5 5 0 0 0 10 0c0-2.5-1.5-4.5-3-6-1-1-2-2-2-3V3"/><path d="M9 3h6"/></svg>
+            </div>
+            <h3>Biotechnology &amp; Bioinformatics</h3>
+          </div>
+          <div class="chip-row">
+            <span class="chip">Bioinstrumentation (Wet Labs)</span>
+            <span class="chip">Agarose Gel Electrophoresis</span>
+            <span class="chip">SDS-PAGE</span>
+            <span class="chip">Nanotechnology</span>
+            <span class="chip">Green Synthesis for Nanomaterials</span>
+            <span class="chip">Biofilm Production</span>
+            <span class="chip">Cellulose Extraction</span>
+            <span class="chip">CMC Production</span>
+            <span class="chip">NCBI</span>
+            <span class="chip">FASTA</span>
+            <span class="chip">BLAST</span>
+            <span class="chip">AI Concepts</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="eyebrow">Track Record</div>
+        <h2>Experience</h2>
+        <p class="desc">Hands-on internships across research, development, and creative production.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-top">
+              <div class="tl-role">Summer Intern</div>
+              <div class="tl-duration">1 Month</div>
+            </div>
+            <div class="tl-org">MNNIT, Prayagraj</div>
+            <p class="tl-desc">Learned skills in nanotechnological products, extracting cellulose from agricultural waste, functional derivatives, nanocellulose, and biofilm production.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-top">
+              <div class="tl-role">Web Development Intern</div>
+              <div class="tl-duration">1 Month · Remote</div>
+            </div>
+            <div class="tl-org">Saiket Systems</div>
+            <p class="tl-desc">Developed responsive web interfaces and projects using HTML and Python for real-world development tasks.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-top">
+              <div class="tl-role">Graphic Designer</div>
+              <div class="tl-duration">1 Month · Remote</div>
+            </div>
+            <div class="tl-org">InAmigos Foundation</div>
+            <p class="tl-desc">Created impactful posters, image assets, and creative visuals highlighting the NGO's social impact.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-top">
+              <div class="tl-role">Video Editor</div>
+              <div class="tl-duration">1 Month · Remote</div>
+            </div>
+            <div class="tl-org">InAmigos Foundation</div>
+            <p class="tl-desc">Created and edited short-form video content including Instagram Reels and YouTube Shorts.</p>
+          </div>
+        </div>
+
+        <div class="tl-item" data-reveal>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-top">
+              <div class="tl-role">Content Writer / Copywriter</div>
+              <div class="tl-duration">1 Month · Remote</div>
+            </div>
+            <div class="tl-org">InAmigos Foundation</div>
+            <p class="tl-desc">Wrote articles and storytelling content covering various NGO mission projects.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="section" id="projects" style="background:var(--bg-soft);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="eyebrow">Selected Work</div>
+        <h2>Projects</h2>
+        <p class="desc">Real deliverables produced across internships and coursework.</p>
+      </div>
+
+      <div class="proj-grid">
+        <div class="card proj-card" data-reveal>
+          <div class="proj-tag">Design · InAmigos Foundation</div>
+          <h3>Social Impact Poster Series</h3>
+          <p>A set of posters and image assets built in Photoshop &amp; Figma to communicate an NGO's mission and campaigns.</p>
+        </div>
+
+        <div class="card proj-card" data-reveal>
+          <div class="proj-tag">Video · InAmigos Foundation</div>
+          <h3>Short-Form Video Content</h3>
+          <p>Instagram Reels and YouTube Shorts edited in Premiere Pro &amp; After Effects, with color grading and audio mixing.</p>
+        </div>
+
+        <div class="card proj-card" data-reveal>
+          <div class="proj-tag">Development · Saiket Systems</div>
+          <h3>Responsive Web Interfaces</h3>
+          <p>HTML and Python-driven interfaces built during a remote internship focused on real-world development tasks.</p>
+        </div>
+
+        <div class="card proj-card" data-reveal>
+          <div class="proj-tag">Research · MNNIT Prayagraj</div>
+          <h3>Cellulose Extraction &amp; Biofilm Study</h3>
+          <p>Wet-lab work extracting nanocellulose from agricultural waste and producing biofilms from functional derivatives.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LANGUAGES ================= -->
+  <section class="section" style="padding:72px 0;">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="margin-bottom:32px;">
+        <div class="eyebrow">Languages</div>
+        <h2 style="font-size:1.5rem;">Communication</h2>
+      </div>
+      <div class="lang-strip" data-reveal>
+        <div class="lang-pill">
+          <div class="lang-name">English</div>
+          <div class="lang-level">Professional Working Proficiency</div>
+          <div class="bar"><div class="bar-fill" style="width:88%;"></div></div>
+        </div>
+        <div class="lang-pill">
+          <div class="lang-name">Hindi</div>
+          <div class="lang-level">Elementary Proficiency</div>
+          <div class="bar"><div class="bar-fill" style="width:40%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section contact-section" id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div data-reveal>
+          <div class="eyebrow">Get In Touch</div>
+          <h2 style="font-size:clamp(1.6rem,3vw,2.2rem);">Let's build something together.</h2>
+          <p class="desc" style="margin-top:16px;">Open to opportunities in web development, design, video editing, and biotech research. Reach out through any of the channels below.</p>
+        </div>
+
+        <div class="contact-card" data-reveal>
+          <div class="contact-row">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></div>
+            <div>
+              <div class="label">Email</div>
+              <a class="value" href="mailto:shriti.malviya30@gmail.com">shriti.malviya30@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.79.65 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.27a2 2 0 0 1 2.11-.45c.86.31 1.75.53 2.65.65A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div>
+              <div class="label">Phone</div>
+              <a class="value" href="tel:+919651201055">+91 96512 01055</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>
+              <div class="label">Location</div>
+              <div class="value">Prayagraj, Uttar Pradesh</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></div>
+            <div>
+              <div class="label">LinkedIn</div>
+              <a class="value" href="https://www.linkedin.com/in/shriti-malviya" target="_blank" rel="noopener">shriti malviya</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> Shriti Malviya — Built with <span>HTML, CSS &amp; JS</span>
+</footer>
+
+<script>
+  // ---------- Mobile nav toggle ----------
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // ---------- Active nav link on scroll ----------
+  const navAnchors = document.querySelectorAll('[data-nav]');
+  const sections = Array.from(navAnchors).map(a => document.querySelector(a.getAttribute('href')));
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = '#' + entry.target.id;
+        navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => s && navObserver.observe(s));
+
+  // ---------- Reveal on scroll ----------
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ---------- Footer year ----------
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Signature element: rotating DNA helix ----------
+  const helix = document.getElementById('helix');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const N = 26;
+  const dots = [];
+
+  for (let i = 0; i < N; i++) {
+    const t = i / (N - 1);
+    const dotA = document.createElement('div');
+    dotA.className = 'dot a';
+    const dotB = document.createElement('div');
+    dotB.className = 'dot b';
+    dotA.style.top = (t * 100) + '%';
+    dotB.style.top = (t * 100) + '%';
+    helix.appendChild(dotA);
+    helix.appendChild(dotB);
+    dots.push({ t, dotA, dotB });
+  }
+
+  function renderHelix(time){
+    dots.forEach(({ t, dotA, dotB }) => {
+      const phase = t * Math.PI * 4 + time;
+      const xA = 50 + 38 * Math.sin(phase);
+      const xB = 50 + 38 * Math.sin(phase + Math.PI);
+      const depthA = (Math.cos(phase) + 1) / 2;
+      const depthB = (Math.cos(phase + Math.PI) + 1) / 2;
+
+      dotA.style.left = xA + '%';
+      dotA.style.transform = `translate(-50%,-50%) scale(${0.55 + 0.55 * depthA})`;
+      dotA.style.opacity = 0.35 + 0.65 * depthA;
+      dotA.style.zIndex = Math.round(depthA * 10);
+
+      dotB.style.left = xB + '%';
+      dotB.style.transform = `translate(-50%,-50%) scale(${0.55 + 0.55 * depthB})`;
+      dotB.style.opacity = 0.35 + 0.65 * depthB;
+      dotB.style.zIndex = Math.round(depthB * 10);
+    });
+  }
+
+  if (reduceMotion) {
+    renderHelix(0);
+  } else {
+    function loop(now){
+      renderHelix(now / 1400);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  }
+</script>
+
+</body>
+</html>
